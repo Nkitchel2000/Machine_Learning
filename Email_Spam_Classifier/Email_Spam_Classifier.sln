@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Email_Spam_Classifier", "Email_Spam_Classifier.pyproj", "{597F1AE7-0AAC-476A-9B3D-3ACD62F13183}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{597F1AE7-0AAC-476A-9B3D-3ACD62F13183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{597F1AE7-0AAC-476A-9B3D-3ACD62F13183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EF15F45-E6E4-4E3D-98E8-9031F3E77CB5}
+	EndGlobalSection
+EndGlobal
