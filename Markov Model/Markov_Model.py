@@ -118,9 +118,6 @@ def generate_new_sequence(A,pi,n=20):
 
     return [generated_sequence, sum]
 
-sum0 = generate_new_sequence(A_0, pi_0, 20)[1]
-sum1 = generate_new_sequence(A_1, pi_1, 20)[1]
-
 sequences_test,labels_test = pickle.load(open('genes_test_unix.p','rb'))
 sequence_probabilities_0 = 0; sequence_probabilities_1 = 0
 true_prob_0 = 0; true_prob_1 = 0
