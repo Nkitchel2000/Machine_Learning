@@ -145,7 +145,6 @@ for s, l in zip(sequences_test, labels_test):
                     sum0 *= A_0[int((i - (i % 4)) / 4)][i % 4]
                     sum1 *= A_1[int((i - (i % 4)) / 4)][i % 4]
         else:
-            #s[0]
             for i in range(4):
                 if s[0] == nucleobases[i]:
                     sum0 *= pi_0[i]
