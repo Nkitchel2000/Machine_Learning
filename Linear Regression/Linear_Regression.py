@@ -1,19 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 data = np.loadtxt('crickets.txt')
-
+data -= data.mean(axis=0)
+data /= data.std(axis=0)
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import minmax_scale
 from scipy.linalg import pinv
+
 X_train, X_test, Y_train, Y_test = train_test_split(data[:,0], data[:,1], test_size=0.5, random_state=42)
-
-def normal(vec):
-    return vec/np.linalg.norm(vec)
-
-X_train = normal(X_train)
-X_test = normal(X_test)
-Y_train = normal(Y_train)
-Y_test = normal(Y_test)
 
 def calc_phi(train, degree):
     matrix = np.array([[0.0 for i in range(degree)] for i in range(len(train))])
@@ -35,7 +29,7 @@ def fit_polynomial(X,Y,d,l):
 
     lamtrix = np.array([[l for i in range(d)] for i in range(d)])
 
-    lamtrix = lamtrix * np.identity(d)
+    lamtrix = l * np.identity(d)
 
     Phi = calc_phi(X,d)
     PhiT = Phi.transpose()
@@ -59,10 +53,9 @@ for d in degrees:
     #! weights to the test set!!!
 
     train_line = fit_polynomial(X_train,Y_train,d, 0)
-    test_line = fit_polynomial(X_test,Y_test,d, 0)
 
     train_prediction = np.dot(calc_phi(X_train, d), train_line)
-    test_prediction = np.dot(calc_phi(X_test, d), test_line)
+    test_prediction = np.dot(calc_phi(X_test, d), train_line)
 
     train_rmse.append(np.sqrt(sum((train_prediction - Y_train) ** 2)))
     test_rmse.append(np.sqrt(sum((test_prediction - Y_test) ** 2)))
@@ -86,10 +79,9 @@ for lamda in lamdas:
     #! weights to the test set!!!
 
     train_line = fit_polynomial(X_train,Y_train,d, lamda)
-    test_line = fit_polynomial(X_test,Y_test,d, lamda)
 
     train_prediction = np.dot(calc_phi(X_train, d), train_line)
-    test_prediction = np.dot(calc_phi(X_test, d), test_line)
+    test_prediction = np.dot(calc_phi(X_test, d), train_line)
 
     train_rmse.append(np.sqrt(sum((train_prediction - Y_train) ** 2)))
     test_rmse.append(np.sqrt(sum((test_prediction - Y_test) ** 2)))
