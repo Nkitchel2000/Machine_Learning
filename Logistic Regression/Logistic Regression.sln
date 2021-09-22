@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Logistic Regression", "Logistic Regression.pyproj", "{D83E0784-1FA7-45B1-B01F-EF1F76CAEAA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D83E0784-1FA7-45B1-B01F-EF1F76CAEAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83E0784-1FA7-45B1-B01F-EF1F76CAEAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97151600-872A-4B93-AEF8-6B65E6B78B58}
+	EndGlobalSection
+EndGlobal
