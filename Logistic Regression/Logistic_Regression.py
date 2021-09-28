@@ -49,6 +49,10 @@ Y_data = sigmoid((X_data * best[1]) + best[0])
 plt.plot(X_data, Y_data)
 plt.show()
 
+#Gradient Descent Varibles
+length_mat = int(len(store) ** 0.5)
+log_posterior_values_mat = store.reshape(length_mat, length_mat)
+
 #! Plot lobster survival
 def gradient(w, X, Y, lamda = 0.1):
 
@@ -88,4 +92,32 @@ length = int(len(w_options) ** 0.5)
 log_posterior_gradient = store.reshape( (length, length) )
 
 plt.quiver(np.arange(-4, 4, 0.1), np.arange(-4, 4, 0.1), u, v, scale = 5000)
+plt.show()
+
+#############################################################
+######Plotting gradient descent by formula###################
+
+w_descent = np.array([0.0,0.0])
+n = 10 ** -3
+w_descent -= n * -gradient(w = w_descent, X = X, Y = Y)
+#gradient(w = np.array(w_descent), X = X, Y = Y)
+n_iter = 100
+w_list = np.zeros((n_iter, 2))
+w_list[0] = np.array([2, 2])
+
+
+
+w_descent = np.array([3.0,-3.0])
+n = 10 ** -3
+n_iter = 1000
+w_list_0 = np.zeros(n_iter)
+w_list_1 = np.zeros(n_iter)
+for i in range(n_iter):
+    w_descent -= n * -gradient(w = w_descent, X = X, Y = Y)
+    w_list_0[i] = np.array(w_descent[0])
+    w_list_1[i] = np.array(w_descent[1])
+
+plt.contourf(np.arange(-4, 4, 0.1), np.arange(-4, 4, 0.1), log_posterior_values_mat)
+plt.quiver(np.arange(-4, 4, 0.1), np.arange(-4, 4, 0.1), u, v, scale = 7000)
+plt.plot(w_list_1, w_list_0, color = "red")
 plt.show()
