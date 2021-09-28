@@ -33,12 +33,59 @@ def L(w,X, Y, lam):
     p2 = np.dot(1 - Y,np.log(1 - wX))
     p3 = ( lam * np.dot(wT, w))
 
-    #The sum is computed inside each dot product as it multiples each index by the others and adds them up.
-    log_post = (p1 + p2) - p3
-
-    return log_post
-
+    return (p1 + p2) - p3
 
 # Develop a method to find the best values of w_0 and w_1.
-w = [[1], [2]]
-print(L(w, X, Y, 3)[0][0])
+w_options = [(w0, w1) for w0 in np.arange(-4, 4 , 0.1) for w1 in np.arange(-4, 4, 0.1)] 
+store = np.zeros(len(w_options))
+
+for i, k in enumerate(w_options):
+    store[i] = L(np.array(w_options[i]), X, Y , 1)
+
+best = w_options[np.argmax(store)]
+X_data = np.arange(-3, 3, 0.1)
+Y_data = sigmoid((X_data * best[1]) + best[0])
+
+plt.plot(X_data, Y_data)
+plt.show()
+
+#! Plot lobster survival
+def gradient(w, X, Y, lamda = 0.1):
+
+    phi = np.column_stack((np.repeat(1, len(X)), X))
+    log_posterior_gradient = 0.0
+    for x, y, phi_i in zip(X, Y, phi):
+        log_posterior_gradient += (y - sigmoid(phi_i @ w)) * phi_i
+    
+    return log_posterior_gradient - lamda * w.T 
+
+gradient(w = np.array(w_options[0]), X = X, Y = Y)
+
+#! use plt.quiver to visualize the gradients of the log-posterior.
+log_posterior_gradient_values = []
+for i, w in enumerate(w_options):
+    log_posterior_gradient_values.append(gradient(w = np.array(w_options[i]), X = X, Y = Y))
+
+length = int(len(w_options) ** 0.5)
+
+W0_options = np.arange(len(w_options))
+W1_options = np.arange(len(w_options))
+W0_gradient = np.zeros(len(w_options))
+W1_gradient = np.zeros(len(w_options))
+
+index = range(len(w_options))
+
+for i in index:
+    W0_options[i] = w_options[i][0]
+    W1_options[i] = w_options[i][1]
+    W0_gradient[i] = log_posterior_gradient_values[i][0]
+    W1_gradient[i] = log_posterior_gradient_values[i][1]
+
+u = W0_gradient.reshape(length, length)
+v = W1_gradient.reshape(length, length)
+
+length = int(len(w_options) ** 0.5)
+log_posterior_gradient = store.reshape( (length, length) )
+
+plt.quiver(np.arange(-4, 4, 0.1), np.arange(-4, 4, 0.1), u, v, scale = 5000)
+plt.show()
