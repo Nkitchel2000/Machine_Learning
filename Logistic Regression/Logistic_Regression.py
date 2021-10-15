@@ -100,12 +100,9 @@ plt.show()
 w_descent = np.array([0.0,0.0])
 n = 10 ** -3
 w_descent -= n * -gradient(w = w_descent, X = X, Y = Y)
-#gradient(w = np.array(w_descent), X = X, Y = Y)
 n_iter = 100
 w_list = np.zeros((n_iter, 2))
 w_list[0] = np.array([2, 2])
-
-
 
 w_descent = np.array([3.0,-3.0])
 n = 10 ** -3
