@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import matplotlib.pyplot as plt
+import matplotlib
 
 class Net(nn.Module):
     def __init__(self):
@@ -29,10 +31,226 @@ class Net(nn.Module):
 
         return a2
 
+#from sklearn.datasets import fetch_openml
+#from sklearn.model_selection import train_test_split
+#from torch.utils.data import TensorDataset
+
+## In order to run this in class, we're going to reduce the dataset by a factor of 5
+#X, y = fetch_openml('mnist_784', version=1, return_X_y=True, cache=True, as_frame=False)
+#X/=255.
+#y = y.astype(int)
+#X,X_test,y,y_test = train_test_split(X,y,test_size=10000)
+
+## Extract number of data points, and the height and width of the images for later reshaping
+#m = X.shape[0]
+#n = X.shape[1]
+
+#h = 28
+#w = 28
+
+#N = 10
+
+#X = torch.from_numpy(X)
+#X_test = torch.from_numpy(X_test)
+#y = torch.from_numpy(y)
+#y_test = torch.from_numpy(y_test)
+
+#X = X.to(torch.float32)
+#X_test = X_test.to(torch.float32)
+#y = y.to(torch.long)
+#y_test = y_test.to(torch.long)
+
+#device = torch.device('cuda:0' if torch.cuda.is_available() else "cpu")
+
+#X = X.to(device)
+#X_test = X_test.to(device)
+#y = y.to(device)
+#y_test = y_test.to(device)
+
+#training_data = TensorDataset(X,y)
+#test_data = TensorDataset(X_test,y_test)
+
+#batch_size = 256
+#train_loader = torch.utils.data.DataLoader(dataset=training_data,
+#                                           batch_size=batch_size, 
+#                                           shuffle=True)
+
+#batch_size = 256
+#test_loader = torch.utils.data.DataLoader(dataset=test_data,
+#                                           batch_size=batch_size, 
+#                                           shuffle=False)
+
+##Values to store each of the Gradient Descent models
+#grad_storage = []
+
+
+############# Gradient Descent Model SGD ############----------------------------------------------------
+#model = Net()
+#model.to(device)
+#criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+
+#optimizer = torch.optim.SGD(model.parameters(),lr=1e-3)
+
+#epochs = 50
+
+#total_train = 0
+#correct_train = 0
+## Loop over the data
+#for epoch in range(epochs):
+#    model.train()
+#    # Loop over each subset of data
+#    for d,t in train_loader:
+
+#        # Zero out the optimizer's gradient buffer
+#        optimizer.zero_grad()
+        
+#        # Make a prediction based on the model
+#        outputs = model(d)
+        
+#        # Compute the loss
+#        loss = criterion(outputs,t)      
+
+#        # Use backpropagation to compute the derivative of the loss with respect to the parameters
+#        loss.backward()
+        
+#        # Use the derivative information to update the parameters
+#        optimizer.step()
+        
+#        _, predicted = torch.max(outputs.data,1)
+#        total_train += float(t.size(0))
+#        correct_train += float((predicted==t).sum())
+        
+#    model.eval()
+#    # After each epoch, compute the test set accuracy
+#    total=0.
+#    correct=0.
+#    # Loop over all the test examples and accumulate the number of correct results in each batch
+#    for d,t in test_loader:
+#        outputs = model(d)
+#        _, predicted = torch.max(outputs.data,1)
+#        total += float(t.size(0))
+#        correct += float((predicted==t).sum())
+        
+#    # Print the epoch, the training loss, and the test set accuracy.
+#    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+        
+#grad_storage.append(optimizer)
+
+############# Gradient Descent Model RMSprop ############----------------------------------------------------
+#model = Net()
+#model.to(device)
+#criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+
+#optimizer = torch.optim.RMSprop(model.parameters(),lr=1e-3)
+
+#epochs = 50
+
+#total_train = 0
+#correct_train = 0
+## Loop over the data
+#for epoch in range(epochs):
+#    model.train()
+#    # Loop over each subset of data
+#    for d,t in train_loader:
+
+#        # Zero out the optimizer's gradient buffer
+#        optimizer.zero_grad()
+        
+#        # Make a prediction based on the model
+#        outputs = model(d)
+        
+#        # Compute the loss
+#        loss = criterion(outputs,t)      
+
+#        # Use backpropagation to compute the derivative of the loss with respect to the parameters
+#        loss.backward()
+        
+#        # Use the derivative information to update the parameters
+#        optimizer.step()
+        
+#        _, predicted = torch.max(outputs.data,1)
+#        total_train += float(t.size(0))
+#        correct_train += float((predicted==t).sum())
+        
+#    model.eval()
+#    # After each epoch, compute the test set accuracy
+#    total=0.
+#    correct=0.
+#    # Loop over all the test examples and accumulate the number of correct results in each batch
+#    for d,t in test_loader:
+#        outputs = model(d)
+#        _, predicted = torch.max(outputs.data,1)
+#        total += float(t.size(0))
+#        correct += float((predicted==t).sum())
+        
+#    # Print the epoch, the training loss, and the test set accuracy.
+#    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+
+#    ############ Gradient Descent Model Adam ############----------------------------------------------------
+#model = Net()
+#model.to(device)
+#criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+
+#optimizer = torch.optim.Adam(model.parameters(),lr=1e-3)
+
+#epochs = 50
+
+#total_train = 0
+#correct_train = 0
+## Loop over the data
+#for epoch in range(epochs):
+#    model.train()
+#    # Loop over each subset of data
+#    for d,t in train_loader:
+
+#        # Zero out the optimizer's gradient buffer
+#        optimizer.zero_grad()
+        
+#        # Make a prediction based on the model
+#        outputs = model(d)
+        
+#        # Compute the loss
+#        loss = criterion(outputs,t)      
+
+#        # Use backpropagation to compute the derivative of the loss with respect to the parameters
+#        loss.backward()
+        
+#        # Use the derivative information to update the parameters
+#        optimizer.step()
+        
+#        _, predicted = torch.max(outputs.data,1)
+#        total_train += float(t.size(0))
+#        correct_train += float((predicted==t).sum())
+        
+#    model.eval()
+#    # After each epoch, compute the test set accuracy
+#    total=0.
+#    correct=0.
+#    # Loop over all the test examples and accumulate the number of correct results in each batch
+#    for d,t in test_loader:
+#        outputs = model(d)
+#        _, predicted = torch.max(outputs.data,1)
+#        total += float(t.size(0))
+#        correct += float((predicted==t).sum())
+        
+#    # Print the epoch, the training loss, and the test set accuracy.
+#    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+#################################################################################
+
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset
 
+print("Started")
 # In order to run this in class, we're going to reduce the dataset by a factor of 5
 X, y = fetch_openml('mnist_784', version=1, return_X_y=True, cache=True, as_frame=False)
 X/=255.
@@ -68,123 +286,16 @@ y_test = y_test.to(device)
 training_data = TensorDataset(X,y)
 test_data = TensorDataset(X_test,y_test)
 
-batch_size = 256
+batch_size = 128
 train_loader = torch.utils.data.DataLoader(dataset=training_data,
                                            batch_size=batch_size, 
                                            shuffle=True)
 
-batch_size = 256
+batch_size = 128
 test_loader = torch.utils.data.DataLoader(dataset=test_data,
                                            batch_size=batch_size, 
                                            shuffle=False)
 
-#Values to store each of the Gradient Descent models
-grad_storage = []
-
-
-############ Gradient Descent Model SGD ############----------------------------------------------------
-model = Net()
-model.to(device)
-criterion = torch.nn.CrossEntropyLoss(reduction='mean')
-
-optimizer = torch.optim.SGD(model.parameters(),lr=1e-3)
-
-epochs = 50
-
-total_train = 0
-correct_train = 0
-# Loop over the data
-for epoch in range(epochs):
-    model.train()
-    # Loop over each subset of data
-    for d,t in train_loader:
-
-        # Zero out the optimizer's gradient buffer
-        optimizer.zero_grad()
-        
-        # Make a prediction based on the model
-        outputs = model(d)
-        
-        # Compute the loss
-        loss = criterion(outputs,t)      
-
-        # Use backpropagation to compute the derivative of the loss with respect to the parameters
-        loss.backward()
-        
-        # Use the derivative information to update the parameters
-        optimizer.step()
-        
-        _, predicted = torch.max(outputs.data,1)
-        total_train += float(t.size(0))
-        correct_train += float((predicted==t).sum())
-        
-    model.eval()
-    # After each epoch, compute the test set accuracy
-    total=0.
-    correct=0.
-    # Loop over all the test examples and accumulate the number of correct results in each batch
-    for d,t in test_loader:
-        outputs = model(d)
-        _, predicted = torch.max(outputs.data,1)
-        total += float(t.size(0))
-        correct += float((predicted==t).sum())
-        
-    # Print the epoch, the training loss, and the test set accuracy.
-    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
-        
-grad_storage.append(optimizer)
-
-############ Gradient Descent Model RMSprop ############----------------------------------------------------
-model = Net()
-model.to(device)
-criterion = torch.nn.CrossEntropyLoss(reduction='mean')
-
-optimizer = torch.optim.RMSprop(model.parameters(),lr=1e-3)
-
-epochs = 50
-
-total_train = 0
-correct_train = 0
-# Loop over the data
-for epoch in range(epochs):
-    model.train()
-    # Loop over each subset of data
-    for d,t in train_loader:
-
-        # Zero out the optimizer's gradient buffer
-        optimizer.zero_grad()
-        
-        # Make a prediction based on the model
-        outputs = model(d)
-        
-        # Compute the loss
-        loss = criterion(outputs,t)      
-
-        # Use backpropagation to compute the derivative of the loss with respect to the parameters
-        loss.backward()
-        
-        # Use the derivative information to update the parameters
-        optimizer.step()
-        
-        _, predicted = torch.max(outputs.data,1)
-        total_train += float(t.size(0))
-        correct_train += float((predicted==t).sum())
-        
-    model.eval()
-    # After each epoch, compute the test set accuracy
-    total=0.
-    correct=0.
-    # Loop over all the test examples and accumulate the number of correct results in each batch
-    for d,t in test_loader:
-        outputs = model(d)
-        _, predicted = torch.max(outputs.data,1)
-        total += float(t.size(0))
-        correct += float((predicted==t).sum())
-        
-    # Print the epoch, the training loss, and the test set accuracy.
-    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
-
-    ############ Gradient Descent Model Adam ############----------------------------------------------------
 model = Net()
 model.to(device)
 criterion = torch.nn.CrossEntropyLoss(reduction='mean')
@@ -193,6 +304,8 @@ optimizer = torch.optim.Adam(model.parameters(),lr=1e-3)
 
 epochs = 50
 
+batch_128_list = []
+
 total_train = 0
 correct_train = 0
 # Loop over the data
@@ -233,3 +346,120 @@ for epoch in range(epochs):
         
     # Print the epoch, the training loss, and the test set accuracy.
     print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+    batch_128_list.append(loss.item())
+
+model = Net()
+model.to(device)
+criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+
+optimizer = torch.optim.Adam(model.parameters(),lr=1e-3)
+
+epochs = 50
+
+batch_1024_list = []
+
+total_train = 0
+correct_train = 0
+# Loop over the data
+for epoch in range(epochs):
+    model.train()
+    # Loop over each subset of data
+    for d,t in train_loader:
+
+        # Zero out the optimizer's gradient buffer
+        optimizer.zero_grad()
+        
+        # Make a prediction based on the model
+        outputs = model(d)
+        
+        # Compute the loss
+        loss = criterion(outputs,t)      
+
+        # Use backpropagation to compute the derivative of the loss with respect to the parameters
+        loss.backward()
+        
+        # Use the derivative information to update the parameters
+        optimizer.step()
+        
+        _, predicted = torch.max(outputs.data,1)
+        total_train += float(t.size(0))
+        correct_train += float((predicted==t).sum())
+        
+    model.eval()
+    # After each epoch, compute the test set accuracy
+    total=0.
+    correct=0.
+    # Loop over all the test examples and accumulate the number of correct results in each batch
+    for d,t in test_loader:
+        outputs = model(d)
+        _, predicted = torch.max(outputs.data,1)
+        total += float(t.size(0))
+        correct += float((predicted==t).sum())
+        
+    # Print the epoch, the training loss, and the test set accuracy.
+    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+    batch_1024_list.append(loss.item())
+
+model = Net()
+model.to(device)
+criterion = torch.nn.CrossEntropyLoss(reduction='mean')
+
+optimizer = torch.optim.Adam(model.parameters(),lr=1e-3)
+
+epochs = 50
+
+batch_4096_list = []
+
+total_train = 0
+correct_train = 0
+# Loop over the data
+for epoch in range(epochs):
+    model.train()
+    # Loop over each subset of data
+    for d,t in train_loader:
+
+        # Zero out the optimizer's gradient buffer
+        optimizer.zero_grad()
+        
+        # Make a prediction based on the model
+        outputs = model(d)
+        
+        # Compute the loss
+        loss = criterion(outputs,t)      
+
+        # Use backpropagation to compute the derivative of the loss with respect to the parameters
+        loss.backward()
+        
+        # Use the derivative information to update the parameters
+        optimizer.step()
+        
+        _, predicted = torch.max(outputs.data,1)
+        total_train += float(t.size(0))
+        correct_train += float((predicted==t).sum())
+        
+    model.eval()
+    # After each epoch, compute the test set accuracy
+    total=0.
+    correct=0.
+    # Loop over all the test examples and accumulate the number of correct results in each batch
+    for d,t in test_loader:
+        outputs = model(d)
+        _, predicted = torch.max(outputs.data,1)
+        total += float(t.size(0))
+        correct += float((predicted==t).sum())
+        
+    # Print the epoch, the training loss, and the test set accuracy.
+    print(epoch,loss.item(),100.*correct_train/total_train,100.*correct/total)
+    batch_4096_list.append(loss.item())
+
+
+print(f'128: {batch_128_list[-1]}, 1024: {batch_1024_list[-1]}, 4096: {batch_4096_list[-1]}')
+
+plt.plot(batch_128_list)
+plt.plot(batch_1024_list)
+plt.plot(batch_4096_list)
+plt.legend(['128', '1024', '4096'])
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.title('Compare mini-batch sizes')
+plt.show()
